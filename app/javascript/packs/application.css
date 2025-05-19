@@ -1,7 +1,126 @@
+.header {
+  font-size: 1.5em;
+  padding: 1em .5em;
+  border-bottom: 1px solid black;
+}
+
+.navbar-right {
+  float: right;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
     'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
     'Helvetica Neue', sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 10vh;
+}
+
+.wrapper {
+  border: 1px black solid;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-width: 500px;
+  padding: 10px;
+}
+
+.container  h1 {
+  font-size: 3em;
+  margin: 0 10%;
+}
+
+.container {
+  justify-content: center;
+  display: flex;
+  padding: 10px;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  padding: 0px;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 500px;
+}
+
+li {
+  border-bottom: 2px grey solid;
+  display: flex;
+  justify-content: space-between;
+  font-size: 2em;
+  padding: 10px;
+}
+
+.login-wrapper form {
+  width: 50%;
+  padding: 10px;
+
+}
+
+.input-box {
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box label {
+  padding-bottom: 10px;
+}
+
+.input-box input {
+  min-height: 25px;
+}
+
+.login-btn {
+  background-color: black;
+  color: white;
+  font-size: 1em;
+  padding: 0.5em;
+  margin-top: 1em;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.candidate-list {
+  padding-top: 20px;
+}
+
+.candidate label {
+  font-size: 1.5em;
+  padding: 15px;
+}
+
+.vote-btn {
+  background-color: black;
+  color: white;
+  font-size: 1em;
+  padding: 0.5em;
+  margin-top: 1em;
+  border-radius: 5px;
+  width: 75px;
+}
+
+.vote-input {
+  width: 350px
+}
+
+.vote-submission {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.new-vote {
+  font-size: 1.5em;
 }

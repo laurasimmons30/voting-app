@@ -1,0 +1,9 @@
+<nav class="navbar">
+  VOTE.WEBSITE
+
+  <span class="navbar-right">
+    <% if @current_user %>
+      <%= "Signed in as #{@current_user.email}" %>
+    <%end%>
+  </span>
+</nav>

@@ -10,7 +10,12 @@
     <%= javascript_pack_tag "application" %>
   </head>
 
+    <header class="header">
+      <%= render "shared/navbar" %>
+    </header>
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -7,12 +7,9 @@ const Vote = ({candidatesData, userData, maxCandidateLimit}) => {
   const [candidates, setCandidates] = useState(candidatesData);
   const [voted, setVoted] = useState(userData.hasVoted);
   const token = document.querySelector('meta[name="csrf-token"]')?.content;
-
-  useEffect(() => {
-    if(voted) {
-      window.location.href = "/results"
-    }
-  }, [voted]);
+  const goToResults = () => {
+    window.location.href = "/results";
+  };
 
   const submitNewCandidate = async (newCandidateName) => {
     try {
@@ -24,11 +21,12 @@ const Vote = ({candidatesData, userData, maxCandidateLimit}) => {
         },
         body: JSON.stringify({name: newCandidateName})
       });
-      
+
       const json = await response.json();
       setCandidates(json['data']);
       setVoted(true);
 
+      goToResults();
     } catch (error) {
       console.error(error);
     }
@@ -47,10 +45,14 @@ const Vote = ({candidatesData, userData, maxCandidateLimit}) => {
 
         const json = await response.json();
         setVoted(true);
-
+        goToResults();
     } catch (error) {
       console.error(error)
     }
+  }
+
+  if (voted) {
+    goToResults();
   }
 
   return(

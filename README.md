@@ -1,97 +1,90 @@
-# Voting app for interview exercises
+# Voting app
 
-This Rails and React application is the starting point for our Voting app
-interview exercise. You may not need all the various files included to complete
-the assignment, but they are here in case they help you move faster! Please
-modify anything you need to in order to meet the requirements and show us your
-own approach.
+## Documentation
 
-## Installation
+## Technical Decisions
 
-Your development environment should have:
+For my architecture design, I considered the pros and cons of building all my views in React and keeping the Rails side as a pure API, but as there was no specific requirement for this to behave like a SPA, I chose instead to build this like a traditional Rails app where it is managing the views. The views are driven by what reactivity is required per feature to be intentional about when to leverage React and when not to.
 
-* Ruby v3.1.2
-* [Bundler](https://bundler.io/)
-* Node v20.18.2
-* Yarn v1.22.19
-* git
-* [SQLite3](https://www.sqlite.org/)
+- I built the login form in a traditional rails.html.erb format as there was no specified requirement for the view to load async, which also simplified routing, as I could manage my screen rendering mostly through the rails router.
+- The Vote and Results pages are both react and responsive with updating results based on logged in user and votes for candidates.
 
-Initialize git, install the application, and initialize the database:
+If the requirements were to make a react SPA, I would have made the rails application API only and started versioning my API endpoint now.
 
-```sh
-# First, download the zip file, unzip the directory,
-# and navigate into the project directory. Then:
-git init
-git add .
-git commit -m "Initial files provided"
-bundle install
-bundle exec rake db:migrate
+## Improvements
 
-# Install JS packages, including React
-yarn install
-```
+If I was going to continue building out this project, some features I would improve:
 
-## Running the app
+- Improve sessions management and implement logout (and true authentication with the password)
+
+- Create a `Festival` table that manages the candidates collection. This would allow the limit to be flexible if the voting app was used at different events, rather than needing to update the constant on the `Candidate` class. A Festival model could also have start and end date timeframes which could allow for user votes to be expired if they attended a different festival in the future and wanted to vote again. The association would go:
+
+  A Festival can have up to 10 candidates. A User can vote once per candidate per festival.
+
+- Improved error handling on response and messaging to the users. Given the timeframe for this assignment, I kept this minimal on implementation.
+
+# How To Use
 
 ```sh
-bundle exec rails server
+bundle install # Install dependencies
+yarn install # Install javascript dependencies
+bundle exec rails s # Run the server
+
+http://localhost:3000 or http://localhost:3000/login
+http://localhost:3000/results
+
+For asset live reloading:
+
+./bin/shakapacker-dev-server # Run in separate terminal
+
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) in your browser
+From here you have two options, Hitting the base endpoint, the `\login` endpoint or the `\results` endpoint. Results will be empty at first if no candidates exist and no votes have been cast.
 
-For asset live reloading, run:
-```sh
-./bin/shakapacker-dev-server
+http://localhost:3000 or http://localhost:3000/login
+Once you have logged in (sign up and registration use the same form, I chose to not differentiate in order to get to other requirements since it was stated that secure authentication was not a concern), you will be redirected to the `/votes` endpoint where you can add a candidate or cast a vote.
+
+After you vote, you will be redirected to the Results page.
+
+Because logout was out of scope, you can return to the login page to either Login as an existing user, or register a new user, and test the workflow once again.
+
+To reset the Database and try again, use:
+
+```
+rake db:reset
 ```
 
-If the assets ever get out of sync, delete `/public/packs` and restart your
-Rails server (and your shakapacker-dev-server if it was running).
+## Testing
 
-## Running tests
+## React/Jest Tests
 
-The included test suite uses Rspec and Capybara.
+### To Make tests:
 
-Check out `spec/requests/` for example tests.
+```
+// initial setup console:
+yarn add jest @testing-library/react @testing-library/jest-dom
 
-```sh
-# Run all tests
-bundle exec rspec
+yarn add --dev @testing-library/react @testing-library/dom
 
-# Run one test file
-bundle exec rspec <path/to/the/file.rb>
-
-# Run one test case inside a test file
-bundle exec rspec <path/to/the/file.rb>:<line_number>
+yarn add -D jest-environment-jsdom
 ```
 
-## Accessing the Rails console
+### Known issue:
 
-```sh
-bundle exec rails console
-```
+`import '@testing-library/jest-dom';`
 
-## Debugging
+Causes the following compiling error running the app, but is needed to run the tests:
 
-You can open up a debugging console by adding `binding.pry` anywhere in test or
-application code.
+`ERROR in ./node_modules/@testing-library/jest-dom/node_modules/supports-color/browser.js`
 
-Example:
+- Workaround for exercise - I did not have enough time to debug a solution, so for the purposes of the demo, uncomment the above testing-library line to run the React tests, and comment out again to run application. The import is required in every react test.
 
-```rb
-def show
-  binding.pry
-  render json: { data: @my_object }, status: :ok
-end
-```
+### To run:
 
-In this example, when the `show` method is hit during click testing or a test,
-a debugger will open up in the terminal, where you can inspect values:
+`yarn jest app/javascript`
 
-```rb
-@my_object.id
-@my_object.valid?
-```
+## Ruby Tests:
 
-Step to the next line with `next`. Resume regular code execution or tests with
-`continue`.
+### To run:
+
+`bundle exec rspec spec`

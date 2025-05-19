@@ -1,0 +1,21 @@
+<div class="login-wrapper">
+  <h1>Sign in to Vote</h1>
+  <%= form_with url: login_path do |form| %>
+    <div class="input-box">
+      <%= form.label :email %>
+      <%= form.text_field :email, placeholder: "email@example.com" %>
+    </div>
+    <div class="input-box">
+      <%= form.label :password %>
+      <%= form.password_field :password, placeholder: "password" %>
+    </div>
+    <div class="input-box">
+      <%= form.label :zipcode%>
+      <%= form.text_field :zipcode, maxlength: 5, placeholder: "5 digit zip" %>
+    </div>
+    <div class="input-btn">
+      <%= form.submit "Sign In", class: "login-btn" %>
+    </div>
+  <% end %>
+
+</div>

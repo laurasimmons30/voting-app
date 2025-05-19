@@ -7,4 +7,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  resources :votes, only: [ :show ]
+  post "votes/:id", to: "votes#vote"
+  resources :candidates, only: [:create]
+
+  get "/results", to: "votes#results"
+  get "/login", to: "sessions#login"
+  post '/login', to: "sessions#create"
+  delete '/logout', to: "sessions#destroy"
 end

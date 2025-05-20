@@ -29,17 +29,14 @@ If I was going to continue building out this project, some features I would impr
 bundle install # Install dependencies
 yarn install # Install javascript dependencies
 bundle exec rails s # Run the server
+./bin/shakapacker-dev-server # Run in separate terminal for assest live reloading
 
 http://localhost:3000 or http://localhost:3000/login
 http://localhost:3000/results
 
-For asset live reloading:
-
-./bin/shakapacker-dev-server # Run in separate terminal
-
 ```
 
-From here you have two options, Hitting the base endpoint, the `\login` endpoint or the `\results` endpoint. Results will be empty at first if no candidates exist and no votes have been cast.
+From here you have two options, Hitting the base endpoint, the `/login` endpoint or the `/results` endpoint. Results will be empty at first if no candidates exist and no votes have been cast.
 
 http://localhost:3000 or http://localhost:3000/login
 Once you have logged in (sign up and registration use the same form, I chose to not differentiate in order to get to other requirements since it was stated that secure authentication was not a concern), you will be redirected to the `/votes` endpoint where you can add a candidate or cast a vote.

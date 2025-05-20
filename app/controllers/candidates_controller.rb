@@ -1,6 +1,5 @@
 class CandidatesController < ApplicationController
   def create
-    # method to check if voter has already voted?
     @candidate = Candidate.new(candidate_params)
 
     if @candidate.save && Candidate.count <= Candidate::MAX_LIMIT

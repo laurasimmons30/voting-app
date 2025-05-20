@@ -21,6 +21,10 @@ class VotesController < ApplicationController
   end
 
   def results
+    if @current_user&.vote
+      session.delete(:user_id)
+    end
+
     @results = Vote.group(:candidate).count.transform_keys(&:name).sort_by { |k,v| v }.reverse
   end
 
